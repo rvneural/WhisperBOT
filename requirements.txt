@@ -1,0 +1,10 @@
+speechrecognition
+python-dotenv==1.0.1
+torch
+soundfile
+openai-whisper
+kagglehub
+pydub==0.25.1
+moviepy==1.0.3
+aiogram==3.6.0
+python-ffmpeg
