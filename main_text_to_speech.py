@@ -57,9 +57,9 @@ async def stt_video(message: types.Message):
 
 
 @r.message(lambda message: message.video_note)
-async def stt_video(message: types.Message):
+async def stt_video_circle(message: types.Message):
     await message.reply('Видео кружок')
-    file_id = message.video.file_id
+    file_id = message.video_note.file_id
     temp = io.BytesIO()
     file_path = __file_path__ + f'{message.from_user.id}-FILE.mp4'
     await bot.download(file_id, temp)
