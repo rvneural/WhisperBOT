@@ -56,6 +56,21 @@ async def stt_video(message: types.Message):
     await send_file(message, text)
 
 
+@r.message(lambda message: message.video_note)
+async def stt_video(message: types.Message):
+    await message.reply('Видео кружок')
+    file_id = message.video.file_id
+    temp = io.BytesIO()
+    file_path = __file_path__ + f'{message.from_user.id}-FILE.mp4'
+    await bot.download(file_id, temp)
+
+    with open(file_path, 'wb') as file:
+        file.write(temp.read())
+
+    text = recognize_file(file_path, False, None)
+    await send_file(message, text)
+
+
 @r.message(lambda message: message.voice)
 async def stt_voice(message: types.Message):
     await message.reply('Голосовое')
