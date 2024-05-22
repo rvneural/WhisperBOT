@@ -2,10 +2,17 @@ import speech_recognition as sr
 from pydub import AudioSegment
 import moviepy.editor as mp
 import os
-import pydub
+
+"""    class RecognizeBot:
+     states = ['get file', 'ready', 'transcribe', 'done', 'error']
+     transitions = [
+        {'trigger': 'get file', 'source': 'start', 'dest': 'get file'},
+        {'trigger': 'recognize', 'source': 'get file', 'dest': 'ready'},
+        {'trigger': 'rec_r', 'source': 'ready', 'dest': 'transcribe'},
+        {'trigger': 'transcribe', 'source': 'transcribe', 'dest': 'done'}]"""
 
 #Перевод аудио в текст
-formalist = ['mp3', 'wav', 'ogg', 'flv']
+formalist = ['mp3', 'wav', 'ogg', 'flv', 'm4a']
 
 
 def recognize_audio(path: str, audio_format: str) -> str:
@@ -23,6 +30,9 @@ def recognize_audio(path: str, audio_format: str) -> str:
         sound.export(audio_file, format="wav")
     elif audio_format == 'flv':
         sound = AudioSegment.from_flv(path)
+        sound.export(audio_file, format="wav")
+    elif audio_format == 'm4a':
+        sound = AudioSegment.from_file(path)
         sound.export(audio_file, format="wav")
     else:
         audio_file = path
