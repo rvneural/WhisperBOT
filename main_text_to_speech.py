@@ -7,7 +7,8 @@ from recogniser import recognize_audio, recognize_video
 from dotenv import load_dotenv
 from aiogram import Bot, types, Router, Dispatcher
 from aiogram.filters import Command
-import time
+
+
 
 load_dotenv()
 bot = Bot(os.getenv("TOKEN"))

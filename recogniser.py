@@ -47,6 +47,7 @@ def recognize_audio(path: str, audio_format: str) -> str:
     return r.recognize_whisper(audio_data, model='large', show_dict=False, language='ru')
 
 
+
 def recognize_video(path: str) -> str:
     return recognize_audio(extract_audio(path), 'wav')
 
