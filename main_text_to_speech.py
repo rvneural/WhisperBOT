@@ -9,7 +9,6 @@ from aiogram import Bot, types, Router, Dispatcher
 from aiogram.filters import Command
 
 
-
 load_dotenv()
 bot = Bot(os.getenv("TOKEN"))
 __file_path__ = 'files/'
@@ -75,7 +74,14 @@ async def stt_video_circle(message: types.Message):
 @r.message(lambda message: message.voice)
 async def stt_voice(message: types.Message):
     await message.reply('Голосовое')
-    file_type = 'ogg'
+    mime_tipe = message.voice.mime_type.split('/')[1]
+    if mime_tipe.lower() == 'mpeg':
+        file_type = 'm4a'
+    elif mime_tipe.lower() == 'ogg':
+        file_type = 'ogg'
+    else:
+        await message.answer('Не понял формат файла')
+        return
     file_id = message.voice.file_id
     temp = io.BytesIO()
     await bot.download(file_id, temp)

@@ -32,7 +32,7 @@ def recognize_audio(path: str, audio_format: str) -> str:
         sound = AudioSegment.from_flv(path)
         sound.export(audio_file, format="wav")
     elif audio_format == 'm4a':
-        sound = AudioSegment.from_file(path)
+        sound = AudioSegment.from_file(path, format='mpeg')
         sound.export(audio_file, format="wav")
     else:
         audio_file = path
