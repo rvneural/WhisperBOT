@@ -2,6 +2,7 @@ import speech_recognition as sr
 from pydub import AudioSegment
 import moviepy.editor as mp
 import os
+import subprocess
 
 """    class RecognizeBot:
      states = ['get file', 'ready', 'transcribe', 'done', 'error']
@@ -32,8 +33,9 @@ def recognize_audio(path: str, audio_format: str) -> str:
         sound = AudioSegment.from_flv(path)
         sound.export(audio_file, format="wav")
     elif audio_format == 'm4a':
-        sound = AudioSegment.from_file(path, format='m4a')
-        sound.export(audio_file, format="wav")
+        subprocess.call(["ffmpeg", "-i", audio_file, audio_file[:-4] + ".wav"])
+        #sound = AudioSegment.from_file(path, format='m4a')
+        #sound.export(audio_file, format="wav")
     else:
         audio_file = path
 
