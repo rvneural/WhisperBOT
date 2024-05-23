@@ -34,7 +34,7 @@ def recognize_audio(path: str, audio_format: str) -> str:
         sound.export(audio_file, format="wav")
     elif audio_format == 'm4a':
         #subprocess.call(["ffmpeg", "-i", audio_file, audio_file[:-4] + ".wav"])
-        sound = AudioSegment.from_file(audio_file, format='m4a')
+        sound = AudioSegment.from_file(path, format='m4a')
         sound.export(audio_file, format="wav")
     else:
         audio_file = path
