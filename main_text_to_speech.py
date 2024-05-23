@@ -91,8 +91,10 @@ async def stt_voice(message: types.Message):
 
     with open(file_path, 'wb') as file:
         file.write(temp.read())
-
-    text = recognize_file(file_path, True, 'ogg')
+    if file_type == 'm4a':
+        text = recognize_file(file_path, True, 'm4a')
+    else:
+        text = recognize_file(file_path, True, 'ogg')
     await send_file(message, text)
 
 
