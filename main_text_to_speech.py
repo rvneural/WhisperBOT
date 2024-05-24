@@ -111,7 +111,10 @@ async def stt_document(message: types.Message):
 
     file_path = __file_path__ + file_name
 
-    file_type = str(file_name).split('.')[-1]
+    if message.document:
+        file_type = message.document.file_name.split('.')[-1].lower()
+    else:
+        file_type = message.audio.file_name.split('.')[-1].lower()
 
     if file_type in video_types:
         file_id = message.document.file_id
