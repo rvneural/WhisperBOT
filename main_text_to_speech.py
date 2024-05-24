@@ -98,13 +98,13 @@ async def stt_voice(message: types.Message):
     await send_file(message, text)
 
 
-@r.message(lambda message: message.document)
+@r.message(lambda message: message.document or message.audio)
 async def stt_document(message: types.Message):
     await message.reply('Документ')
     file_name = message.file_name.split('.')[0].lower()
 
     video_types = ['mov', 'avi', 'mp4']
-    audio_types = ['mp3', 'ogg', 'flv', 'wav']
+    audio_types = ['mp3', 'ogg', 'flv', 'wav', 'aac']
 
     file_path = __file_path__ + file_name
 

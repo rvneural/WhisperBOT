@@ -13,7 +13,7 @@ import subprocess
         {'trigger': 'transcribe', 'source': 'transcribe', 'dest': 'done'}]"""
 
 #Перевод аудио в текст
-formalist = ['mp3', 'wav', 'ogg', 'flv', 'm4a']
+formalist = ['mp3', 'wav', 'ogg', 'flv', 'm4a', 'aac']
 
 
 def recognize_audio(path: str, audio_format: str) -> str:
@@ -33,8 +33,10 @@ def recognize_audio(path: str, audio_format: str) -> str:
         sound = AudioSegment.from_flv(path)
         sound.export(audio_file, format="wav")
     elif audio_format == 'm4a':
-        #subprocess.call(["ffmpeg", "-i", audio_file, audio_file[:-4] + ".wav"])
         sound = AudioSegment.from_file(path, format='m4a')
+        sound.export(audio_file, format="wav")
+    elif audio_format == 'aac':
+        sound = AudioSegment.from_file(path, format='aac')
         sound.export(audio_file, format="wav")
     else:
         audio_file = path
