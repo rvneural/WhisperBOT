@@ -101,7 +101,10 @@ async def stt_voice(message: types.Message):
 @r.message(lambda message: message.document or message.audio)
 async def stt_document(message: types.Message):
     await message.reply('Документ')
-    file_name = message.file_name.split('.')[0].lower()
+    if message.document:
+        file_name = message.document.file_name.split('.')[0].lower()
+    else:
+        file_name = message.audio.file_name.split('.')[0].lower()
 
     video_types = ['mov', 'avi', 'mp4']
     audio_types = ['mp3', 'ogg', 'flv', 'wav', 'aac']
@@ -116,7 +119,10 @@ async def stt_document(message: types.Message):
         await bot.download(file_id, temp)
         is_audio = False
     elif file_type in audio_types:
-        file_id = message.document.file_id
+        if message.document:
+            file_id = message.document.file_id
+        else:
+            file_id = message.audio.file_id
         temp = io.BytesIO()
         await bot.download(file_id, temp)
         is_audio = True
