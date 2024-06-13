@@ -101,6 +101,18 @@ async def stt_voice(message: types.Message):
 @r.message(lambda message: message.document or message.audio)
 async def stt_document(message: types.Message):
     await message.reply('Документ')
+
+    if message.document:
+        file_size = float(message.document.file_size) / 1024.0 / 1024.0
+    else:
+        file_size = float(message.document.file_size) / 1024.0 / 1024.0
+
+    if file_size >= 19.9:
+        await message.reply('Файл весит больше 20 МБ. Telegram не давет мне загружать файлы такого объема. Пожалуйста, '
+                            'сожмите файл и отправьте мне его еще раз.\n\n'
+                            'Мы уже работаем над устранением этой проблемы.')
+        return
+
     if message.document:
         file_name = message.document.file_name.split('.')[0].lower()
     else:
